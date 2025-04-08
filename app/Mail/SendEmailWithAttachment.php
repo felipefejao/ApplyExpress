@@ -28,8 +28,7 @@ class SendEmailWithAttachment extends Mailable
     {
         return new Envelope(
             subject: $this->data['cargo'],
-
-
+            from: $this->data['user_email'],
         );
     }
 
