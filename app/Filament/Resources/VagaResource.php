@@ -21,6 +21,8 @@ class VagaResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationGroup = 'Vagas';
+
     protected static ?string $navigationLabel = 'Vagas';
 
     public static function form(Form $form): Form
