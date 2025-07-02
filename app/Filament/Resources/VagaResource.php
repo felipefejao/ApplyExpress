@@ -28,8 +28,7 @@ class VagaResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('empresa')
-                    ->label('Empresa')
-                    ->required(),
+                    ->label('Empresa'),
                 Forms\Components\TextInput::make('email')
                     ->label('Email')
                     ->required(),
