@@ -45,6 +45,8 @@ class SendEmailsCommand extends Command
                 'recrutador' => $vaga->recrutador,
                 'cargo' => $vaga->cargo,
                 'language' => $vaga->language,
+                'relocation' => $vaga->relocation,
+                'relocation_city' => $vaga->relocation_city,
                 'nome' => config('user.nome'),
                 'linkedin' => config('user.linkedin'),
                 'github' => config('user.github'),
@@ -55,7 +57,7 @@ class SendEmailsCommand extends Command
                 $vaga->update(['enviado' => true]);
                 $this->info('Email enviado para ' . $vaga->empresa);
             }
-            
+
             sleep(60);
         }
     }

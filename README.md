@@ -1,66 +1,134 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# ApplyExpress
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+ApplyExpress é uma aplicação Laravel projetada para facilitar a gestão de vagas e o envio de e-mails personalizados, utilizando IA para melhorar o conteúdo dos e-mails.
 
-## About Laravel
+## Pré-requisitos
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Antes de começar, certifique-se de ter os seguintes requisitos instalados em sua máquina:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+*   **PHP:** >= 8.2
+*   **Composer:** Gerenciador de dependências PHP
+*   **Node.js & NPM:** Para compilação de assets
+*   **SQLite:** (Ou outro banco de dados de sua preferência)
+*   **Ollama:** Necessário para as funcionalidades de IA (utiliza o modelo `mistral`)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Passo a Passo para Instalação
 
-## Learning Laravel
+Siga as etapas abaixo para configurar o projeto localmente:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 1. Clonar o Repositório
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+```bash
+git clone <url-do-repositorio>
+cd ApplyExpress
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 2. Instalar Dependências do PHP
 
-## Laravel Sponsors
+```bash
+composer install
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 3. Instalar Dependências do Node.js
 
-### Premium Partners
+```bash
+npm install
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### 4. Configurar o Ambiente
 
-## Contributing
+Copie o arquivo de exemplo do ambiente e gere a chave da aplicação:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## Code of Conduct
+### 5. Configurar o Banco de Dados
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Por padrão, o projeto utiliza **SQLite**. O Laravel criará automaticamente o arquivo do banco de dados se ele não existir ao rodar as migrações.
 
-## Security Vulnerabilities
+Execute as migrações para criar as tabelas:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+php artisan migrate
+```
 
-## License
+### 6. Link de Armazenamento
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Crie o link simbólico para que os arquivos enviados fiquem acessíveis publicamente:
+
+```bash
+php artisan storage:link
+```
+
+### 7. Configurar o Ollama (IA)
+
+Esta aplicação utiliza o [Ollama](https://ollama.com/) para melhorar o texto dos e-mails.
+
+1.  Instale o Ollama em sua máquina.
+2.  Baixe o modelo `mistral`:
+    ```bash
+    ollama run mistral
+    ```
+3.  Certifique-se de que o Ollama está rodando em `http://localhost:11434`.
+
+### 8. Rodar a Aplicação
+
+Para iniciar o servidor de desenvolvimento e o compilador de assets (Vite) simultaneamente, você pode usar o comando customizado definido no `composer.json`:
+
+```bash
+composer run dev
+```
+
+Ou, se preferir rodar separadamente:
+
+```bash
+# Terminal 1: Servidor Laravel
+php artisan serve
+
+# Terminal 2: Vite Assets
+npm run dev
+```
+
+A aplicação estará disponível em `http://localhost:8000`.
+
+## Envio de E-mails
+
+Para enviar os e-mails das vagas cadastradas que ainda não foram enviados, utilize o comando:
+
+```bash
+php artisan app:send-emails-command
+```
+
+Este comando percorre as vagas com status `enviado = false`, envia o e-mail e aguarda 60 segundos entre cada envio para evitar bloqueios.
+
+## Personalização de Dados
+
+Os dados do remetente (nome, links sociais, etc.) que aparecem nos e-mails estão configurados em `config/user.php`. Lembre-se de alterá-los com suas informações:
+
+```php
+// config/user.php
+return [
+    'nome' => 'Seu Nome',
+    'email' => 'seu.email@exemplo.com',
+    'linkedin' => 'https://www.linkedin.com/in/seu-perfil/',
+    'github' => 'https://www.github.com/seu-usuario',
+];
+```
+
+## Funcionalidades Principais
+
+*   **Gestão de Vagas:** Interface administrativa utilizando Filament.
+*   **Melhoria de E-mail com IA:** Utiliza o Ollama (Mistral) para otimizar o HTML dos e-mails.
+*   **Envio de E-mails:** Sistema integrado para envio de comunicações.
+
+## Painel Administrativo
+
+O projeto utiliza o **Filament** para o painel administrativo.
+Acesse em: `http://localhost:8000/admin`
+
+Para criar um usuário administrador:
+```bash
+php artisan make:filament-user
+```

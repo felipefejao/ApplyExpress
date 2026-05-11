@@ -33,10 +33,19 @@
     @if ($data['recrutador'])
         <p>Dear {{ $data['recrutador'] }},</p>
     @endif
-    
+
     <p>My name is <b>{{ $data['nome'] }}</b>, and I am writing to express my interest in the position of <b>{{ $data['cargo'] }}</b>. I believe that my skills and experiences align well with the requirements of the position, and I am excited about the possibility of contributing to the team at <b>{{ $data['empresa'] }}</b>.</p>
     <p>Attached, I am sending my resume for review. I am available for an interview at any time and eagerly look forward to the opportunity to discuss how I can contribute to the success of your company.</p>
-    
+
+    @if ($data['relocation'])
+        <p>I currently reside in Brazil, state of São Paulo. However, I am interested in realocating
+            to {{$data['relocation_city']}}. This is another reason for my interest in this position.</p>
+    @endif
+
+    @if (! in_array($data['language'], ['pt_br', 'us']))
+        <p>P.S.: I take the liberty to send this e-mail using your native language, but my main language to communicate is in <b>English</b>, so my resume attached is in english too.</p>
+    @endif
+
     <p>Thank you for your time and consideration.</p>
     <p>Sincerely,</p>
     <h3>{{ $data['nome'] }}</h3>

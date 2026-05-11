@@ -2,6 +2,8 @@
 
 namespace App\Mail;
 
+use App\Services\OllamaService;
+use App\Services\TextBoostService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -18,7 +20,7 @@ class SendEmailWithAttachment extends Mailable
      */
     public function __construct(public readonly array $data)
     {
-        
+
     }
 
     /**
@@ -37,8 +39,14 @@ class SendEmailWithAttachment extends Mailable
      */
     public function content(): Content
     {
+
+
+        $html = view('email.' . $this->getLanguagePrefix(), ['data' => $this->data])->render();
+
+        $htmlImprovingService = new OllamaService();
+
         return new Content(
-            view: 'email.' . $this->data['language'],
+            htmlString:  $htmlImprovingService->improveHtml($html, $this->data['language']),
         );
     }
 
@@ -49,7 +57,12 @@ class SendEmailWithAttachment extends Mailable
      */
     public function attachments(): array
     {
-        return [public_path('curriculo_' . $this->data['language'] . '.pdf')];
+        return [public_path('curriculo_' . $this->getLanguagePrefix() . '.pdf')];
     }
-    
+
+    private function getLanguagePrefix(): string
+    {
+        return $this->data['language'] === 'pt_br' ? 'pt_br' : 'us';
+    }
+
 }

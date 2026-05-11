@@ -14,5 +14,5 @@ class Vaga extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['empresa','email', 'recrutador', 'cargo', 'enviado', 'language'];
+    protected $fillable = ['empresa','email', 'recrutador', 'cargo', 'enviado', 'language', 'relocation', 'relocation_city'];
 }

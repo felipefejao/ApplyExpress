@@ -31,12 +31,16 @@
 <div class="container">
     <h1>Interesse na Vaga</h1>
     @if ($data['recrutador'])
-        <p>Prezados {{ $data['recrutador'] }},</p>
+        <p>Prezado {{ $data['recrutador'] }},</p>
     @endif
-    
+
     <p>Meu nome é <b>{{ $data['nome'] }}</b>, e estou escrevendo para expressar meu interesse na vaga de <b>{{ $data['cargo'] }}</b>. Acredito que minhas habilidades e experiências se alinham bem com os requisitos da vaga, e estou entusiasmado com a possibilidade de contribuir para a equipe da <b>{{ $data['empresa'] ?? 'empresa' }}</b>.</p>
     <p>Em anexo, envio meu currículo para avaliação. Estou à disposição para uma entrevista a qualquer momento e espero ansiosamente a oportunidade de discutir como posso contribuir para o sucesso da sua empresa.</p>
-    
+
+    @if ($data['relocation'])
+        <p>Atualmente resido no Brasil, estado de São Paulo. Mas tenho o interesse na realocação para {{$data['relocation_city']}}. Mais um motivo para me interessar nessa posição.</p>
+    @endif
+
     <p>Obrigado pelo seu tempo e consideração.</p>
     <p>Atenciosamente,</p>
     <h3>{{ $data['nome'] }}</h3>

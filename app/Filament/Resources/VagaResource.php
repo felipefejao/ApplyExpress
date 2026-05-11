@@ -7,6 +7,7 @@ use App\Filament\Resources\VagaResource\RelationManagers;
 use App\Models\Vaga;
 use Dom\Text;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -23,6 +24,8 @@ class VagaResource extends Resource
 
     protected static ?string $navigationLabel = 'Vagas';
 
+    protected static ?string $label = 'Vagas';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -38,16 +41,32 @@ class VagaResource extends Resource
                 Forms\Components\TextInput::make('cargo')
                     ->label('Cargo')
                     ->required(),
-                Forms\Components\TextInput::make('language')
-                    ->label('Language'),
+                Forms\Components\Select::make('language')
+                    ->label('Idioma')
+                    ->required()
+                    ->options([
+                        'pt_br' => 'Nacional',
+                        'us' => 'Inglês',
+                        'es' => 'Espanhol',
+                        'de' => 'Alemão',
+                        'fr' => 'Francês',
+                    ]),
                 Forms\Components\Checkbox::make('enviado')
                     ->label('Enviado'),
+                Section::make('Realocação')
+                    ->schema([
+                        Forms\Components\Checkbox::make('relocation')
+                            ->label('Realocação?'),
+                        Forms\Components\TextInput::make('relocation_city')
+                            ->label('Cidade para Realocação')
+                    ])
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('empresa')->sortable()->searchable(),
                 TextColumn::make('email')->sortable()->searchable(),
