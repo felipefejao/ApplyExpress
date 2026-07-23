@@ -74,4 +74,9 @@ class User extends Authenticatable
             })
             ->latest('starts_at');
     }
+
+    public function vagas()
+    {
+        return $this->hasMany(Vaga::class);
+    }
 }

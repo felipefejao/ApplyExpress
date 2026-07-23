@@ -12,7 +12,8 @@ class VagasChart extends ChartWidget
 
     protected function getData(): array
     {
-        $data = Vaga::select(DB::raw('count(id) as count'), DB::raw('DATE(created_at) as date'))
+        $data = Vaga::forUser()
+            ->select(DB::raw('count(id) as count'), DB::raw('DATE(created_at) as date'))
             ->where('created_at', '>=', now()->subDays(30))
             ->groupBy('date')
             ->orderBy('date')

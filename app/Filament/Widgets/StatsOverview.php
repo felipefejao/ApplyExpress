@@ -12,15 +12,15 @@ class StatsOverview extends BaseWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Total de Vagas', Vaga::count())
+            Stat::make('Total de Vagas', Vaga::forUser()->count())
                 ->description('Vagas cadastradas no sistema')
                 ->descriptionIcon('heroicon-m-briefcase')
                 ->color('primary'),
-            Stat::make('Vagas Enviadas', Vaga::where('enviado', true)->count())
+            Stat::make('Vagas Enviadas', Vaga::forUser()->where('enviado', true)->count())
                 ->description('Candidaturas processadas')
                 ->descriptionIcon('heroicon-m-check-circle')
                 ->color('success'),
-            Stat::make('Vagas Pendentes', Vaga::where('enviado', false)->count())
+            Stat::make('Vagas Pendentes', Vaga::forUser()->where('enviado', false)->count())
                 ->description('Aguardando envio')
                 ->descriptionIcon('heroicon-m-clock')
                 ->color('warning'),

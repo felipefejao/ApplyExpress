@@ -41,6 +41,10 @@ class VagaResource extends Resource
                 Forms\Components\TextInput::make('cargo')
                     ->label('Cargo')
                     ->required(),
+                Forms\Components\TagsInput::make('slug')
+                    ->label('Slug')
+                    ->dehydrated()
+                    ->separator(null),
                 Forms\Components\Select::make('language')
                     ->label('Idioma')
                     ->required()
@@ -51,6 +55,11 @@ class VagaResource extends Resource
                         'de' => 'Alemão',
                         'fr' => 'Francês',
                     ]),
+                Forms\Components\Toggle::make('is_public')
+                    ->label('Pública')
+                    ->helperText('Vagas públicas podem ser vistas por outros usuários.')
+                    ->default(false)
+                    ->visible(fn ($record) => $record === null || $record->user_id === auth()->id()),
                 Forms\Components\Checkbox::make('enviado')
                     ->label('Enviado'),
                 Section::make('Realocação')
@@ -72,11 +81,20 @@ class VagaResource extends Resource
                 TextColumn::make('email')->sortable()->searchable(),
                 TextColumn::make('recrutador')->sortable()->searchable(),
                 TextColumn::make('cargo')->sortable()->searchable(),
+                TextColumn::make('slug')
+                    ->bulleted()
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('language')->sortable()->searchable(),
+                Tables\Columns\BooleanColumn::make('is_public')->label('Pública')->sortable(),
                 Tables\Columns\BooleanColumn::make('enviado')->label('Enviado')->sortable(),
             ])
             ->filters([
-                //
+                Tables\Filters\TernaryFilter::make('is_public')
+                    ->label('Visibilidade')
+                    ->placeholder('Todas')
+                    ->trueLabel('Públicas')
+                    ->falseLabel('Privadas'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -86,6 +104,11 @@ class VagaResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->forUser();
     }
 
     public static function getRelations(): array
