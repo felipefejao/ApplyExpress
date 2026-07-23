@@ -13,7 +13,7 @@ class SendEmailsController extends Controller
      */
     public function __invoke(Request $request)
     {
-        Artisan::call('app:send-emails-command');
+        Artisan::queue('app:send-emails-command');
 
         return \Illuminate\Support\Facades\Redirect::back()->with('success', 'Emails enviados com sucesso!');
     }

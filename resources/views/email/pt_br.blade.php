@@ -38,7 +38,7 @@
     <p>Em anexo, envio meu currículo para avaliação. Estou à disposição para uma entrevista a qualquer momento e espero ansiosamente a oportunidade de discutir como posso contribuir para o sucesso da sua empresa.</p>
 
     @if ($data['relocation'])
-        <p>Atualmente resido no Brasil, estado de São Paulo. Mas tenho o interesse na realocação para {{$data['relocation_city']}}. Mais um motivo para me interessar nessa posição.</p>
+        <p>Atualmente resido no interior do estado de São Paulo. Mas tenho o interesse na realocação para {{$data['relocation_city']}}. Mais um motivo para me interessar nessa posição.</p>
     @endif
 
     <p>Obrigado pelo seu tempo e consideração.</p>
