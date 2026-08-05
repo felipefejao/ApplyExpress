@@ -27,7 +27,7 @@ class SendEmailsCommand extends Command
      */
     public function handle()
     {
-        $vagas = \App\Models\Vaga::where('enviado', false)->get();
+        $vagas = \App\Models\Vaga::where('enviado', false)->where('user_id', Auth::user()->id)->get();
 
         try {
             $this->sendEmails($vagas);

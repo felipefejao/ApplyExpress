@@ -83,6 +83,14 @@ class Vaga extends Model
             return $query->where('is_public', true);
         }
 
+        if ($user->isSuperAdmin()) {
+            return $query;
+        }
+
+        if ($user->isCandidato()) {
+            return $query->where('user_id', $user->id);
+        }
+
         return $query->where(function ($q) use ($user) {
             $q->where('user_id', $user->id)
               ->orWhere('is_public', true);

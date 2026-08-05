@@ -58,8 +58,10 @@ class VagaResource extends Resource
                 Forms\Components\Toggle::make('is_public')
                     ->label('Pública')
                     ->helperText('Vagas públicas podem ser vistas por outros usuários.')
-                    ->default(false)
-                    ->visible(fn ($record) => $record === null || $record->user_id === auth()->id()),
+                    ->default(fn () => auth()->user()->isEmpresa())
+                    ->disabled(fn () => auth()->user()->isEmpresa())
+                    ->dehydrated()
+                    ->visible(fn ($record) => auth()->user()->isSuperAdmin() || $record === null || $record->user_id === auth()->id()),
                 Forms\Components\Checkbox::make('enviado')
                     ->label('Enviado'),
                 Section::make('Realocação')

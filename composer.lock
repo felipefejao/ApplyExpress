@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cedf707fb5a2ab7bfb027a4b13bebef3",
+    "content-hash": "893730db3169fc56a30a8d17de5f5fe6",
     "packages": [
         {
             "name": "brick/math",
@@ -7467,6 +7467,69 @@
             "time": "2024-05-16T03:13:13+00:00"
         },
         {
+            "name": "mrkoopie/laravel-ai-harness",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MrKoopie/laravel-ai-harness.git",
+                "reference": "708db55e7b3494e5723abc128e6cd718fb41b8af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MrKoopie/laravel-ai-harness/zipball/708db55e7b3494e5723abc128e6cd718fb41b8af",
+                "reference": "708db55e7b3494e5723abc128e6cd718fb41b8af",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^11.0|^12.0|^13.0",
+                "illuminate/contracts": "^11.0|^12.0|^13.0",
+                "illuminate/support": "^11.0|^12.0|^13.0",
+                "php": "^8.2",
+                "spatie/laravel-package-tools": "^1.92"
+            },
+            "require-dev": {
+                "larastan/larastan": "^3.0",
+                "laravel/pint": "^1.27",
+                "orchestra/testbench": "^9.0|^10.0|^11.0",
+                "pestphp/pest": "^3.0|^4.0",
+                "pestphp/pest-plugin-laravel": "^3.0|^4.0",
+                "phpstan/phpstan": "^2.1"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "MrKoopie\\LaravelAiHarness\\LaravelAiHarnessServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MrKoopie\\LaravelAiHarness\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel package that installs and refreshes AI agent harnessing, local runtime drivers, and quality foundations.",
+            "homepage": "https://github.com/MrKoopie/laravel-ai-harness",
+            "keywords": [
+                "agents",
+                "ai",
+                "claude",
+                "codex",
+                "harness",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/MrKoopie/laravel-ai-harness/issues",
+                "source": "https://github.com/MrKoopie/laravel-ai-harness/tree/main"
+            },
+            "time": "2026-07-10T10:50:53+00:00"
+        },
+        {
             "name": "myclabs/deep-copy",
             "version": "1.13.0",
             "source": {
@@ -9738,12 +9801,14 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "mrkoopie/laravel-ai-harness": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
