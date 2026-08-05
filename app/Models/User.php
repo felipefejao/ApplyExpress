@@ -3,11 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -27,8 +29,33 @@ class User extends Authenticatable
         'bio',
         'locale',
         'is_admin',
+        'role',
         'credits',
     ];
+
+    const ROLE_SUPER_ADMIN = 'super-admin';
+    const ROLE_CANDIDATO = 'candidato';
+    const ROLE_EMPRESA = 'empresa';
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->role === self::ROLE_SUPER_ADMIN || $this->is_admin;
+    }
+
+    public function isCandidato(): bool
+    {
+        return $this->role === self::ROLE_CANDIDATO;
+    }
+
+    public function isEmpresa(): bool
+    {
+        return $this->role === self::ROLE_EMPRESA;
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return true;
+    }
 
     /**
      * The attributes that should be hidden for serialization.

@@ -28,6 +28,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->registration()
             ->profile()
             ->brandName('ApplyExpress')
             ->colors([
@@ -50,12 +51,18 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
-            ->NavigationItems([
+            ->navigationItems([
                 NavigationItem::make('Enviar E-mails para Vagas')
                     ->url(fn () => route('admin.send-emails'))
                     ->icon('heroicon-o-envelope')
                     ->group('Ações')
-                    ->sort(99),
+                    ->sort(99)
+                    ->visible(fn () => auth()->user()?->isCandidato() || auth()->user()?->isSuperAdmin()),
+                NavigationItem::make('Painel de Vagas')
+                    ->url(fn () => route('job-board'))
+                    ->icon('heroicon-o-envelope')
+                    ->group('Painel de vagas')
+                    ->sort(98),
             ])
             ->authMiddleware([
                 Authenticate::class,

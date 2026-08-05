@@ -1,0 +1,18 @@
+version = 1
+name = "ApplyExpress Codex worktree"
+
+[setup]
+script = '''
+set -eu
+
+WORKTREE_PROFILE=codex \
+bash .codex/scripts/local-environment.sh setup
+'''
+
+[cleanup]
+script = '''
+set -eu
+
+WORKTREE_PROFILE=codex \
+bash .codex/scripts/local-environment.sh cleanup
+'''

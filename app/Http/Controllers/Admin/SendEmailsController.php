@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Redirect;
 
 class SendEmailsController extends Controller
 {
@@ -15,6 +16,6 @@ class SendEmailsController extends Controller
     {
         Artisan::queue('app:send-emails-command');
 
-        return \Illuminate\Support\Facades\Redirect::back()->with('success', 'Emails enviados com sucesso!');
+        return Redirect::back()->with('success', 'Emails enviados com sucesso!');
     }
 }

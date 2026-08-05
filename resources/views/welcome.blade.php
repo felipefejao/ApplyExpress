@@ -92,7 +92,7 @@
                 Entrar
             </a>
 
-            <a href="/register"
+            <a href="{{ route('filament.admin.auth.register') }}"
                class="bg-orange-500 hover:bg-orange-400 text-white px-5 py-3 rounded-2xl text-sm font-semibold shadow-lg shadow-orange-500/20 transition hover:-translate-y-1">
                 Começar Agora
             </a>

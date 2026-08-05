@@ -17,20 +17,36 @@ class DemoSeeder extends Seeder
         $paymentService = app(PaymentService::class);
 
         // Limpa dados de demonstração anteriores
-        User::where('email', 'demo@applyexpress.test')->delete();
+        User::whereIn('email', [
+            'fsilva.web@gmail.com',
+            'demo@applyexpress.test',
+            'empresa@applyexpress.test'
+        ])->delete();
         Plan::whereIn('slug', ['free', 'pro', 'annual'])->delete();
 
-        // Usuário de demonstração
-        $demoUser = User::factory()->create([
+        // Usuários de demonstração
+        $adminUser = User::factory()->create([
+            'name' => 'Felipe Silva',
+            'email' => 'fsilva.web@gmail.com',
+            'password' => Hash::make('admin123'),
+            'role' => User::ROLE_SUPER_ADMIN,
+            'is_admin' => true,
+        ]);
+
+        $candidatoUser = User::factory()->create([
             'name' => 'Usuário Demo',
             'email' => 'demo@applyexpress.test',
             'password' => Hash::make('demo123'),
-            'linkedin' => 'https://linkedin.com/in/demo',
-            'github' => 'https://github.com/demo',
-            'phone' => '+55 11 99999-9999',
-            'bio' => 'Usuário de demonstração do ApplyExpress.',
-            'locale' => 'pt_BR',
-            'is_admin' => true,
+            'role' => User::ROLE_CANDIDATO,
+            'is_admin' => false,
+        ]);
+
+        $empresaUser = User::factory()->create([
+            'name' => 'Empresa Demo',
+            'email' => 'empresa@applyexpress.test',
+            'password' => Hash::make('empresa123'),
+            'role' => User::ROLE_EMPRESA,
+            'is_admin' => false,
         ]);
 
         // Planos de exemplo
@@ -75,19 +91,21 @@ class DemoSeeder extends Seeder
             ],
         ]);
 
-        // Assinatura ativa do usuário demo no plano Pro
-        $paymentService->subscribe($demoUser, $proPlan, 'sub_demo_123', 'demo');
+        // Assinatura ativa do usuário candidato no plano Pro
+        $paymentService->subscribe($candidatoUser, $proPlan, 'sub_demo_123', 'demo');
 
         // Transação extra de créditos para demonstração
         CreditTransaction::create([
-            'user_id' => $demoUser->id,
+            'user_id' => $candidatoUser->id,
             'amount' => 25,
             'type' => 'add',
             'description' => 'Créditos bônus de boas-vindas',
         ]);
-        $demoUser->increment('credits', 25);
+        $candidatoUser->increment('credits', 25);
 
         $this->command->info('Dados de demonstração criados com sucesso.');
-        $this->command->info('Login: demo@applyexpress.test / demo123');
+        $this->command->info('Super Admin: fsilva.web@gmail.com / admin123');
+        $this->command->info('Candidato: demo@applyexpress.test / demo123');
+        $this->command->info('Empresa: empresa@applyexpress.test / empresa123');
     }
 }
