@@ -31,6 +31,7 @@ class PaymentService
             'gateway_subscription_id' => $gatewaySubscriptionId,
             'status' => 'active',
             'starts_at' => now(),
+            'ends_at' => now()->addMonths(1)//mensal
         ]);
 
         Log::info($subscription);
