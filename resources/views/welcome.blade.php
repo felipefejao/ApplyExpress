@@ -68,12 +68,16 @@
         </div>
 
         <div class="hidden lg:flex items-center gap-10 text-sm font-medium text-gray-600 dark:text-gray-300">
+            <a href="{{ route('job-board') }}" class="hover:text-black dark:hover:text-white transition">
+                Painel de Vagas
+            </a>
+
             <a href="#features" class="hover:text-black dark:hover:text-white transition">
                 Funcionalidades
             </a>
 
             <a href="#pricing" class="hover:text-black dark:hover:text-white transition">
-                Preços
+                Planos
             </a>
 
             <a href="#about" class="hover:text-black dark:hover:text-white transition">
@@ -92,7 +96,7 @@
                 Entrar
             </a>
 
-            <a href="{{ route('filament.admin.auth.register') }}"
+            <a href="{{ route('register.index') }}"
                class="bg-orange-500 hover:bg-orange-400 text-white px-5 py-3 rounded-2xl text-sm font-semibold shadow-lg shadow-orange-500/20 transition hover:-translate-y-1">
                 Começar Agora
             </a>
@@ -125,7 +129,7 @@
 
             <div class="animate-up flex flex-col sm:flex-row items-center justify-center gap-5 mb-20">
 
-                <a href="#"
+                <a href="{{ route('register.index') }}"
                    class="w-full sm:w-auto bg-orange-500 hover:bg-orange-400 text-white px-8 py-5 rounded-2xl text-lg font-semibold shadow-xl shadow-orange-500/20 transition hover:-translate-y-1">
                     Começar Gratuitamente
                 </a>
@@ -270,15 +274,15 @@
 
                 <div
                     class="w-14 h-14 rounded-2xl bg-orange-100 dark:bg-orange-500/10 flex items-center justify-center text-2xl mb-8">
-                    ✨
+                    🔍
                 </div>
 
                 <h3 class="text-2xl font-bold mb-5">
-                    IA Copywriting
+                    Job Board Público
                 </h3>
 
                 <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-                    E-mails que convertem. Use IA para personalizar cada contato com recrutadores.
+                    Explore e filtre vagas públicas. Candidate-se com um clique e gerencie tudo em seu painel privado.
                 </p>
 
             </div>
@@ -288,15 +292,15 @@
 
                 <div
                     class="w-14 h-14 rounded-2xl bg-orange-100 dark:bg-orange-500/10 flex items-center justify-center text-2xl mb-8">
-                    📋
+                    ⚙️
                 </div>
 
                 <h3 class="text-2xl font-bold mb-5">
-                    Gestão Centralizada
+                    Gestão de Vagas
                 </h3>
 
                 <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-                    Status em tempo real. Nunca mais perca o controle das suas candidaturas.
+                    CRUD completo com suporte a multi-idioma, auxílio realocação e controle total de visibilidade.
                 </p>
 
             </div>
@@ -310,11 +314,65 @@
                 </div>
 
                 <h3 class="text-2xl font-bold mb-5">
-                    Automação Inteligente
+                    Automação de E-mails
                 </h3>
 
                 <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-                    Envios agendados para maximizar produtividade e manter consistência nas aplicações.
+                    Disparo inteligente com templates dinâmicos, controle de vazão e integração com seu perfil profissional.
+                </p>
+
+            </div>
+
+            <div
+                class="animate-up group bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/5 rounded-[28px] p-10 hover:-translate-y-2 transition shadow-sm">
+
+                <div
+                    class="w-14 h-14 rounded-2xl bg-orange-100 dark:bg-orange-500/10 flex items-center justify-center text-2xl mb-8">
+                    💳
+                </div>
+
+                <h3 class="text-2xl font-bold mb-5">
+                    Assinaturas e Créditos
+                </h3>
+
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                    Sistema de planos recorrentes e transações de créditos para potencializar suas candidaturas.
+                </p>
+
+            </div>
+
+            <div
+                class="animate-up group bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/5 rounded-[28px] p-10 hover:-translate-y-2 transition shadow-sm">
+
+                <div
+                    class="w-14 h-14 rounded-2xl bg-orange-100 dark:bg-orange-500/10 flex items-center justify-center text-2xl mb-8">
+                    👥
+                </div>
+
+                <h3 class="text-2xl font-bold mb-5">
+                    Níveis de Acesso
+                </h3>
+
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                    Perfis diferenciados para candidatos e empresas, com isolamento total de dados e segurança.
+                </p>
+
+            </div>
+
+            <div
+                class="animate-up group bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/5 rounded-[28px] p-10 hover:-translate-y-2 transition shadow-sm">
+
+                <div
+                    class="w-14 h-14 rounded-2xl bg-orange-100 dark:bg-orange-500/10 flex items-center justify-center text-2xl mb-8">
+                    ✨
+                </div>
+
+                <h3 class="text-2xl font-bold mb-5">
+                    IA Assistant
+                </h3>
+
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                    Otimização de e-mails e insights estratégicos para aumentar suas chances de resposta.
                 </p>
 
             </div>
@@ -323,6 +381,137 @@
 
     </div>
 
+</section>
+
+<section id="pricing" class="py-28 bg-gray-50/50 dark:bg-zinc-900/50">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-3xl mx-auto mb-20 animate-up">
+            <span class="text-orange-500 font-semibold text-sm uppercase tracking-wider">
+                Investimento
+            </span>
+
+            <h2 class="text-5xl font-black mt-4 mb-6 tracking-tight">
+                Planos para acelerar sua carreira.
+            </h2>
+
+            <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                Escolha o plano que melhor se adapta ao seu momento e comece a automatizar suas candidaturas hoje mesmo.
+            </p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8 items-end">
+
+            <!-- Plano Básico -->
+            <div class="animate-up bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/5 rounded-[32px] p-10 shadow-sm hover:shadow-xl transition duration-500">
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-2">Starter</h3>
+                    <div class="flex items-baseline gap-1">
+                        <span class="text-4xl font-black">R$ 29</span>
+                        <span class="text-gray-500 text-lg">,90/mês</span>
+                    </div>
+                    <p class="text-gray-500 mt-4 text-sm">Ideal para quem está começando a organizar as candidaturas.</p>
+                </div>
+
+                <ul class="space-y-4 mb-10">
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="text-orange-500 text-xl">✔</span>
+                        50 Créditos de Envio /mês
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="text-orange-500 text-xl">✔</span>
+                        Gestão de Vagas Ilimitada
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="text-orange-500 text-xl">✔</span>
+                        Templates de E-mail Padrão
+                    </li>
+                    <li class="flex items-center gap-3 text-sm opacity-40">
+                        <span class="text-xl">×</span>
+                        IA Assistant
+                    </li>
+                </ul>
+
+                <a href="{{ route('register.index') }}" class="block text-center w-full py-4 px-6 rounded-2xl border border-orange-500 text-orange-500 font-bold hover:bg-orange-50 dark:hover:bg-orange-500/10 transition">
+                    Começar Agora
+                </a>
+            </div>
+
+            <!-- Plano Pro -->
+            <div class="animate-up relative bg-white dark:bg-zinc-900 border-2 border-orange-500 rounded-[32px] p-10 shadow-2xl scale-105 z-10">
+                <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-orange-500 text-white px-6 py-2 rounded-full text-sm font-bold tracking-wide uppercase">
+                    Mais Popular
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-2">Profissional</h3>
+                    <div class="flex items-baseline gap-1">
+                        <span class="text-5xl font-black">R$ 59</span>
+                        <span class="text-gray-500 text-lg">,90/mês</span>
+                    </div>
+                    <p class="text-gray-500 mt-4 text-sm">Para candidatos ativos que buscam o próximo nível na carreira.</p>
+                </div>
+
+                <ul class="space-y-4 mb-10">
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="text-orange-500 text-xl">✔</span>
+                        150 Créditos de Envio /mês
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="text-orange-500 text-xl">✔</span>
+                        IA Assistant (Personalização)
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="text-orange-500 text-xl">✔</span>
+                        Suporte Prioritário
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="text-orange-500 text-xl">✔</span>
+                        Relatórios de Performance
+                    </li>
+                </ul>
+
+                <a href="{{ route('register.index') }}" class="block text-center w-full py-5 px-6 rounded-2xl bg-orange-500 text-white font-bold shadow-lg shadow-orange-500/20 hover:bg-orange-400 hover:-translate-y-1 transition">
+                    Assinar Agora
+                </a>
+            </div>
+
+            <!-- Plano Elite -->
+            <div class="animate-up bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/5 rounded-[32px] p-10 shadow-sm hover:shadow-xl transition duration-500">
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-2">Elite</h3>
+                    <div class="flex items-baseline gap-1">
+                        <span class="text-4xl font-black">R$ 99</span>
+                        <span class="text-gray-500 text-lg">,90/mês</span>
+                    </div>
+                    <p class="text-gray-500 mt-4 text-sm">Potência máxima para quem tem pressa em ser contratado.</p>
+                </div>
+
+                <ul class="space-y-4 mb-10">
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="text-orange-500 text-xl">✔</span>
+                        Créditos Ilimitados
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="text-orange-500 text-xl">✔</span>
+                        Consultoria de Currículo (IA)
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="text-orange-500 text-xl">✔</span>
+                        Insights Exclusivos do Mercado
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="text-orange-500 text-xl">✔</span>
+                        Early Access a Novas Vagas
+                    </li>
+                </ul>
+
+                <a href="{{ route('register.index') }}" class="block text-center w-full py-4 px-6 rounded-2xl border border-black/10 dark:border-white/10 hover:border-orange-500 transition font-bold">
+                    Contratar Elite
+                </a>
+            </div>
+
+        </div>
+    </div>
 </section>
 
 <section class="py-28">
@@ -352,7 +541,7 @@
                     contratação.
                 </p>
 
-                <a href="#"
+                <a href="{{ route('register.index') }}"
                    class="inline-flex bg-white text-orange-500 px-8 py-5 rounded-2xl font-bold text-lg hover:scale-105 transition">
                     Começar Agora
                 </a>
