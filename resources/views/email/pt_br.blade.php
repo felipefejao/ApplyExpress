@@ -34,8 +34,31 @@
         <p>Prezado {{ $data['recrutador'] }},</p>
     @endif
 
-    <p>Meu nome é <b>{{ $data['nome'] }}</b>, e estou escrevendo para expressar meu interesse na vaga de <b>{{ $data['cargo'] }}</b>. Acredito que minhas habilidades e experiências se alinham bem com os requisitos da vaga, e estou entusiasmado com a possibilidade de contribuir para a equipe da <b>{{ $data['empresa'] ?? 'empresa' }}</b>.</p>
-    <p>Em anexo, envio meu currículo para avaliação. Estou à disposição para uma entrevista a qualquer momento e espero ansiosamente a oportunidade de discutir como posso contribuir para o sucesso da sua empresa.</p>
+    @if ($data['application_text'])
+        <div style="white-space: pre-line;">
+            {!! nl2br(e($data['application_text'])) !!}
+        </div>
+    @else
+        <p>Meu nome é <b>{{ $data['nome'] }}</b>, e estou escrevendo para expressar meu interesse na vaga de <b>{{ $data['cargo'] }}</b>. Acredito que minhas habilidades e experiências se alinham bem com os requisitos da vaga, e estou entusiasmado com a possibilidade de contribuir para a equipe da <b>{{ $data['empresa'] ?? 'empresa' }}</b>.</p>
+    @endif
+
+    @if ($data['cover_letter'])
+        <hr>
+        <h3>Carta de Apresentação</h3>
+        <div style="white-space: pre-line;">
+            {!! nl2br(e($data['cover_letter'])) !!}
+        </div>
+    @endif
+
+    <p>
+        @if (!empty($data['curriculo_url']))
+            Você pode acessar meu currículo através deste link: <a href="{{ $data['curriculo_url'] }}">{{ $data['curriculo_url'] }}</a>
+        @else
+            Em anexo, envio meu currículo para avaliação.
+        @endif
+    </p>
+
+    <p>Estou à disposição para uma entrevista a qualquer momento e espero ansiosamente a oportunidade de discutir como posso contribuir para o sucesso da sua empresa.</p>
 
     @if ($data['relocation'])
         <p>Atualmente resido no interior do estado de São Paulo. Mas tenho o interesse na realocação para {{$data['relocation_city']}}. Mais um motivo para me interessar nessa posição.</p>

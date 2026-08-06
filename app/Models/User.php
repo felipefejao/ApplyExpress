@@ -31,6 +31,9 @@ class User extends Authenticatable implements FilamentUser
         'is_admin',
         'role',
         'credits',
+        'application_text',
+        'cover_letter',
+        'default_curriculo_id',
     ];
 
     const ROLE_SUPER_ADMIN = 'super-admin';
@@ -105,5 +108,15 @@ class User extends Authenticatable implements FilamentUser
     public function vagas()
     {
         return $this->hasMany(Vaga::class);
+    }
+
+    public function curriculos()
+    {
+        return $this->hasMany(Curriculo::class);
+    }
+
+    public function defaultCurriculo()
+    {
+        return $this->belongsTo(Curriculo::class, 'default_curriculo_id');
     }
 }
