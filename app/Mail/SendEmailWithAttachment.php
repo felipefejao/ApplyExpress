@@ -57,7 +57,20 @@ class SendEmailWithAttachment extends Mailable
      */
     public function attachments(): array
     {
-        return [public_path('curriculo_' . $this->getLanguagePrefix() . '.pdf')];
+        if (!empty($this->data['curriculo_url'])) {
+            // If it's a URL, we might want to attach it if it's a local path or just provide a link in the email.
+            // For now, since the user asked for an "external URL", we'll assume it might be a link.
+            // But if we want to support attachments, we could try to download it.
+            // However, typical Filament/Laravel external URL is just a link.
+        }
+
+        $filePath = public_path('curriculo_' . $this->getLanguagePrefix() . '.pdf');
+
+        if (file_exists($filePath)) {
+            return [$filePath];
+        }
+
+        return [];
     }
 
     private function getLanguagePrefix(): string

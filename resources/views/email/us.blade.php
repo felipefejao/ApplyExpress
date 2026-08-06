@@ -34,8 +34,31 @@
         <p>Dear {{ $data['recrutador'] }},</p>
     @endif
 
-    <p>My name is <b>{{ $data['nome'] }}</b>, and I am writing to express my interest in the position of <b>{{ $data['cargo'] }}</b>. I believe that my skills and experiences align well with the requirements of the position, and I am excited about the possibility of contributing to the team at <b>{{ $data['empresa'] }}</b>.</p>
-    <p>Attached, I am sending my resume for review. I am available for an interview at any time and eagerly look forward to the opportunity to discuss how I can contribute to the success of your company.</p>
+    @if ($data['application_text'])
+        <div style="white-space: pre-line;">
+            {!! nl2br(e($data['application_text'])) !!}
+        </div>
+    @else
+        <p>My name is <b>{{ $data['nome'] }}</b>, and I am writing to express my interest in the position of <b>{{ $data['cargo'] }}</b>. I believe that my skills and experiences align well with the requirements of the position, and I am excited about the possibility of contributing to the team at <b>{{ $data['empresa'] }}</b>.</p>
+    @endif
+
+    @if ($data['cover_letter'])
+        <hr>
+        <h3>Cover Letter</h3>
+        <div style="white-space: pre-line;">
+            {!! nl2br(e($data['cover_letter'])) !!}
+        </div>
+    @endif
+
+    <p>
+        @if (!empty($data['curriculo_url']))
+            You can access my resume through this link: <a href="{{ $data['curriculo_url'] }}">{{ $data['curriculo_url'] }}</a>
+        @else
+            Attached, I am sending my resume for review.
+        @endif
+    </p>
+
+    <p>I am available for an interview at any time and eagerly look forward to the opportunity to discuss how I can contribute to the success of your company.</p>
 
     @if ($data['relocation'])
         <p>I currently reside in Brazil, state of São Paulo. However, I am interested in realocating
