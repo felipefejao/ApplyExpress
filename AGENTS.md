@@ -22,3 +22,13 @@ This project uses mrkoopie/laravel-ai-harness to keep agent instructions, MCP co
 - Run the smallest relevant tests before reporting work complete.
 - Keep custom project rules outside this managed block; this block is refreshed by `php artisan ai-harness:update`.
 <!-- ai-harness:end -->
+
+## Custom Project Rules
+
+- **Testing**: Always create tests for implemented functionalities.
+- **Demo Data**: Always create seeders/demo data to populate new functionalities.
+- **Tech Stack**:
+    - Framework: Laravel 11
+    - Admin Panel: Filament 3
+    - Automation: Console commands for batch processing (emails).
+    - Business Model: Subscription-based with credit transactions.

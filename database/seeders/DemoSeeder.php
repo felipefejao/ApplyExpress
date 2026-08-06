@@ -22,7 +22,7 @@ class DemoSeeder extends Seeder
             'demo@applyexpress.test',
             'empresa@applyexpress.test'
         ])->delete();
-        Plan::whereIn('slug', ['free', 'pro', 'annual'])->delete();
+        Plan::whereIn('slug', ['starter', 'profissional', 'elite'])->delete();
 
         // Usuários de demonstração
         $adminUser = User::factory()->create([
@@ -50,48 +50,54 @@ class DemoSeeder extends Seeder
         ]);
 
         // Planos de exemplo
-        $freePlan = Plan::factory()->create([
-            'name' => 'Gratuito',
-            'slug' => 'free',
-            'description' => 'Plano gratuito com funcionalidades básicas.',
-            'price' => 0,
-            'interval' => 'lifetime',
-            'credits_included' => 5,
+        $starterPlan = Plan::factory()->create([
+            'name' => 'Starter',
+            'slug' => 'starter',
+            'description' => 'Ideal para quem está começando a organizar as candidaturas.',
+            'price' => 29.90,
+            'interval' => 'month',
+            'credits_included' => 50,
+            'gateway_id' => 'prod_V1LEgIUdMz8tpQ',
             'features' => [
-                'envio_limitado' => true,
-                'ia_basica' => true,
+                '50 Créditos de Envio /mês',
+                'Gestão de Vagas Ilimitada',
+                'Templates de E-mail Padrão',
             ],
         ]);
 
         $proPlan = Plan::factory()->create([
-            'name' => 'Pro',
-            'slug' => 'pro',
-            'description' => 'Plano mensal com envios ilimitados e IA avançada.',
-            'price' => 29.90,
+            'name' => 'Profissional',
+            'slug' => 'profissional',
+            'description' => 'Para candidatos ativos que buscam o próximo nível na carreira.',
+            'price' => 59.90,
             'interval' => 'month',
-            'credits_included' => 100,
+            'credits_included' => 150,
+            'gateway_id' => 'prod_V1LEgIUdMz8tpQ',
             'features' => [
-                'envios_ilimitados' => true,
-                'ia_avancada' => true,
-                'multiplos_perfis' => true,
+                '150 Créditos de Envio /mês',
+                'IA Assistant (Personalização)',
+                'Suporte Prioritário',
+                'Relatórios de Performance',
             ],
         ]);
 
-        $annualPlan = Plan::factory()->create([
-            'name' => 'Anual',
-            'slug' => 'annual',
-            'description' => 'Plano anual com desconto.',
-            'price' => 299.90,
-            'interval' => 'year',
-            'credits_included' => 1200,
+        $elitePlan = Plan::factory()->create([
+            'name' => 'Elite',
+            'slug' => 'elite',
+            'description' => 'Potência máxima para quem tem pressa em ser contratado.',
+            'price' => 99.90,
+            'interval' => 'month',
+            'credits_included' => 0,
+            'gateway_id' => 'prod_V1LEgIUdMz8tpQ',
             'features' => [
-                'envios_ilimitados' => true,
-                'ia_avancada' => true,
-                'multiplos_perfis' => true,
+                'Créditos Ilimitados',
+                'Consultoria de Currículo (IA)',
+                'Insights Exclusivos do Mercado',
+                'Early Access a Novas Vagas',
             ],
         ]);
 
-        // Assinatura ativa do usuário candidato no plano Pro
+        // Assinatura ativa do usuário candidato no plano Profissional
         $paymentService->subscribe($candidatoUser, $proPlan, 'sub_demo_123', 'demo');
 
         // Transação extra de créditos para demonstração
