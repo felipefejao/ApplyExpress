@@ -27,6 +27,8 @@ class Vaga extends Model
         'relocation',
         'relocation_city',
         'is_public',
+        'accept_pj',
+        'accept_clt'
     ];
 
     protected function casts(): array

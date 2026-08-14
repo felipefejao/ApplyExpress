@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Models\Curriculo;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -37,6 +38,13 @@ class ApplicationSettings extends Page
             'application_text' => $user->application_text,
             'cover_letter' => $user->cover_letter,
             'default_curriculo_id' => $user->default_curriculo_id,
+            'smtp_host' => $user->smtp_host,
+            'smtp_port' => $user->smtp_port,
+            'smtp_username' => $user->smtp_username,
+            'smtp_password' => $user->smtp_password,
+            'smtp_encryption' => $user->smtp_encryption,
+            'smtp_from_address' => $user->smtp_from_address,
+            'smtp_from_name' => $user->smtp_from_name,
         ]);
     }
 
@@ -66,6 +74,38 @@ class ApplicationSettings extends Page
                             ->searchable()
                             ->placeholder('Selecione um currículo'),
                     ]),
+                Section::make('Configurações de E-mail (SMTP)')
+                    ->description('Configure seu próprio servidor SMTP para que os e-mails sejam enviados diretamente por você.')
+                    ->schema([
+                        TextInput::make('smtp_host')
+                            ->label('Servidor SMTP')
+                            ->placeholder('smtp.example.com'),
+                        TextInput::make('smtp_port')
+                            ->label('Porta SMTP')
+                            ->numeric()
+                            ->placeholder('587'),
+                        TextInput::make('smtp_username')
+                            ->label('Usuário SMTP')
+                            ->placeholder('seu-email@example.com'),
+                        TextInput::make('smtp_password')
+                            ->label('Senha SMTP')
+                            ->password()
+                            ->revealable(),
+                        Select::make('smtp_encryption')
+                            ->label('Criptografia')
+                            ->options([
+                                'tls' => 'TLS',
+                                'ssl' => 'SSL',
+                                'none' => 'Nenhuma',
+                            ]),
+                        TextInput::make('smtp_from_address')
+                            ->label('E-mail de Envio (From)')
+                            ->email()
+                            ->placeholder('seu-email@example.com'),
+                        TextInput::make('smtp_from_name')
+                            ->label('Nome de Envio (From)')
+                            ->placeholder('Seu Nome'),
+                    ])->columns(2),
             ])
             ->statePath('data');
     }

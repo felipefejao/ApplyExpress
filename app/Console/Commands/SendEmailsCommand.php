@@ -54,38 +54,8 @@ class SendEmailsCommand extends Command
     private function sendEmails($vagas)
     {
         foreach ($vagas as $vaga) {
-            $user = $vaga->user;
-
-            if (!$user) {
-                $this->warn("Vaga {$vaga->id} não tem usuário associado. Pulando...");
-                continue;
-            }
-
-            $curriculo = $user->defaultCurriculo;
-
-            $sent = Mail::to($vaga->email)->send(new SendEmailWithAttachment([
-                'empresa' => $vaga->empresa,
-                'email' => $vaga->email,
-                'recrutador' => $vaga->recrutador,
-                'cargo' => $vaga->cargo,
-                'language' => $vaga->language,
-                'relocation' => $vaga->relocation,
-                'relocation_city' => $vaga->relocation_city,
-                'nome' => $user->name,
-                'linkedin' => $user->linkedin,
-                'github' => $user->github,
-                'user_email' => $user->email,
-                'application_text' => $user->application_text,
-                'cover_letter' => $user->cover_letter,
-                'curriculo_url' => $curriculo?->external_url,
-            ]));
-
-            if ($sent) {
-                $vaga->update(['enviado' => true]);
-                $this->info('Email enviado para ' . $vaga->empresa);
-            }
-
-            sleep(10); // Reduced sleep for testing or practical use, maybe 60 is too long for a demo
+            \App\Jobs\SendUserEmailJob::dispatch($vaga);
+            $this->info('Job de envio agendado para ' . $vaga->empresa);
         }
     }
 }

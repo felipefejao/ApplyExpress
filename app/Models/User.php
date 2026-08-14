@@ -34,6 +34,13 @@ class User extends Authenticatable implements FilamentUser
         'application_text',
         'cover_letter',
         'default_curriculo_id',
+        'smtp_host',
+        'smtp_port',
+        'smtp_username',
+        'smtp_password',
+        'smtp_encryption',
+        'smtp_from_address',
+        'smtp_from_name',
     ];
 
     const ROLE_SUPER_ADMIN = 'super-admin';
@@ -82,6 +89,7 @@ class User extends Authenticatable implements FilamentUser
             'password' => 'hashed',
             'is_admin' => 'boolean',
             'credits' => 'integer',
+            'smtp_password' => 'encrypted',
         ];
     }
 

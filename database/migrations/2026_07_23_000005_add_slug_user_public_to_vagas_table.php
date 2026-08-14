@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('vagas', function (Blueprint $table) {
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->string('slug')->nullable()->unique();
+            $table->json('slug')->nullable();
             $table->boolean('is_public')->default(false);
         });
     }

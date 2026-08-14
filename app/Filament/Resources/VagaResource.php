@@ -64,6 +64,13 @@ class VagaResource extends Resource
                     ->visible(fn ($record) => auth()->user()->isSuperAdmin() || $record === null || $record->user_id === auth()->id()),
                 Forms\Components\Checkbox::make('enviado')
                     ->label('Enviado'),
+                Section::make('Tipos de contratação')
+                    ->schema([
+                       Forms\Components\Checkbox::make('accept_pj')
+                            ->label('Aceita PJ?'),
+                        Forms\Components\Checkbox::make('accept_clt')
+                            ->label('Aceita CLT?'),
+                    ]),
                 Section::make('Realocação')
                     ->schema([
                         Forms\Components\Checkbox::make('relocation')
