@@ -14,6 +14,7 @@ class Curriculo extends Model
         'user_id',
         'description',
         'external_url',
+        'language'
     ];
 
     public function user(): BelongsTo

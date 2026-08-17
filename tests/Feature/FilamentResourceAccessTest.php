@@ -6,12 +6,12 @@ use App\Models\CreditTransaction;
 use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 class FilamentResourceAccessTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     public function test_admin_routes_exist(): void
     {

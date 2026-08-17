@@ -35,7 +35,7 @@
     @endif
 
     @if ($data['application_text'])
-        <div style="white-space: pre-line;">
+        <div style="white-space: pre-line; margin-bottom: 20px;">
             {!! nl2br(e($data['application_text'])) !!}
         </div>
     @else
@@ -45,24 +45,26 @@
     @if ($data['cover_letter'])
         <hr>
         <h3>Cover Letter</h3>
-        <div style="white-space: pre-line;">
+        <div style="white-space: pre-line; margin-bottom: 20px;">
             {!! nl2br(e($data['cover_letter'])) !!}
         </div>
     @endif
 
-    <p>
-        @if (!empty($data['curriculo_url']))
-            You can access my resume through this link: <a href="{{ $data['curriculo_url'] }}">{{ $data['curriculo_url'] }}</a>
-        @else
-            Attached, I am sending my resume for review.
-        @endif
-    </p>
+    @if (!empty($data['curriculo_url']))
+        <p>
+            <b>Resume:</b> <a href="{{ $data['curriculo_url'] }}" style="font-weight: bold; color: #0056b3;">Resume</a>
+        </p>
+    @endif
 
     <p>I am available for an interview at any time and eagerly look forward to the opportunity to discuss how I can contribute to the success of your company.</p>
 
     @if ($data['relocation'])
         <p>I currently reside in Brazil, state of São Paulo. However, I am interested in realocating
             to {{$data['relocation_city']}}. This is another reason for my interest in this position.</p>
+    @endif
+
+    @if ($data['is_fallback_english'])
+        <p><i>Note: I am sending my resume in English as it is the foreign language I am proficient in.</i></p>
     @endif
 
     @if (! in_array($data['language'], ['pt_br', 'us']))
@@ -72,8 +74,11 @@
     <p>Thank you for your time and consideration.</p>
     <p>Sincerely,</p>
     <h3>{{ $data['nome'] }}</h3>
-    <p><a target="_blank" href="{{ $data['linkedin'] }}">LinkedIn</a></p>
-    <p><a target="_blank" href="{{ $data['github'] }}">GitHub</a></p>
+
+    <div style="margin-top: 20px;">
+        <p><strong>Linkedin:</strong> <a target="_blank" href="{{ $data['linkedin'] }}" style="font-weight: bold; color: #0077b5;">Linkedin</a></p>
+        <p><strong>Github:</strong> <a target="_blank" href="{{ $data['github'] }}" style="font-weight: bold; color: #333;">Github</a></p>
+    </div>
 </div>
 </body>
 </html>

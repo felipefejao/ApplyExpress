@@ -34,6 +34,8 @@ class User extends Authenticatable implements FilamentUser
         'application_text',
         'cover_letter',
         'default_curriculo_id',
+        'github_link',
+        'linkedin_link',
         'smtp_host',
         'smtp_port',
         'smtp_username',

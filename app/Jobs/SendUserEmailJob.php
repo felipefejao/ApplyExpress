@@ -33,7 +33,20 @@ class SendUserEmailJob implements ShouldQueue
             return;
         }
 
-        $curriculo = $user->defaultCurriculo;
+        $language = $this->vaga->language;
+        $curriculo = $user->curriculos()->where('language', $language)->first();
+        $is_fallback_english = false;
+
+        if (!$curriculo && $language !== 'pt_br') {
+            $curriculo = $user->curriculos()->where('language', 'us')->first();
+            if ($curriculo) {
+                $is_fallback_english = true;
+            }
+        }
+
+        if (!$curriculo) {
+            $curriculo = $user->defaultCurriculo;
+        }
 
         $mailData = [
             'empresa' => $this->vaga->empresa,
@@ -44,12 +57,13 @@ class SendUserEmailJob implements ShouldQueue
             'relocation' => $this->vaga->relocation,
             'relocation_city' => $this->vaga->relocation_city,
             'nome' => $user->name,
-            'linkedin' => $user->linkedin,
-            'github' => $user->github,
+            'linkedin' => $user->linkedin_link ?? $user->linkedin,
+            'github' => $user->github_link ?? $user->github,
             'user_email' => $user->email,
             'application_text' => $user->application_text,
             'cover_letter' => $user->cover_letter,
             'curriculo_url' => $curriculo?->external_url,
+            'is_fallback_english' => $is_fallback_english,
         ];
 
         if ($user->smtp_host) {

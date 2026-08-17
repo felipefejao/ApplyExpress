@@ -39,11 +39,20 @@ class SendEmailWithAttachment extends Mailable
      */
     public function content(): Content
     {
+        $data = $this->data;
+        $empresa = $data['empresa'] ?? '';
 
+        if (!empty($data['application_text'])) {
+            $data['application_text'] = str_replace('[NOME_EMPRESA]', $empresa, $data['application_text']);
+        }
 
-        $html = view('email.' . $this->getLanguagePrefix(), ['data' => $this->data])->render();
+        if (!empty($data['cover_letter'])) {
+            $data['cover_letter'] = str_replace('[NOME_EMPRESA]', $empresa, $data['cover_letter']);
+        }
 
-        $htmlImprovingService = new OllamaService();
+        $html = view('email.application', ['data' => $data])->render();
+
+        $htmlImprovingService = app(OllamaService::class);
 
         return new Content(
             htmlString:  $htmlImprovingService->improveHtml($html, $this->data['language']),
@@ -57,19 +66,6 @@ class SendEmailWithAttachment extends Mailable
      */
     public function attachments(): array
     {
-        if (!empty($this->data['curriculo_url'])) {
-            // If it's a URL, we might want to attach it if it's a local path or just provide a link in the email.
-            // For now, since the user asked for an "external URL", we'll assume it might be a link.
-            // But if we want to support attachments, we could try to download it.
-            // However, typical Filament/Laravel external URL is just a link.
-        }
-
-        $filePath = public_path('curriculo_' . $this->getLanguagePrefix() . '.pdf');
-
-        if (file_exists($filePath)) {
-            return [$filePath];
-        }
-
         return [];
     }
 

@@ -38,6 +38,8 @@ class ApplicationSettings extends Page
             'application_text' => $user->application_text,
             'cover_letter' => $user->cover_letter,
             'default_curriculo_id' => $user->default_curriculo_id,
+            'github_link' => $user->github_link,
+            'linkedin_link' => $user->linkedin_link,
             'smtp_host' => $user->smtp_host,
             'smtp_port' => $user->smtp_port,
             'smtp_username' => $user->smtp_username,
@@ -74,6 +76,20 @@ class ApplicationSettings extends Page
                             ->searchable()
                             ->placeholder('Selecione um currículo'),
                     ]),
+                Section::make('Links Profissionais (Opcional)')
+                    ->description('Adicione seus links profissionais para facilitar a visualização pelos recrutadores.')
+                    ->schema([
+                        TextInput::make('github_link')
+                            ->label('Link do GitHub')
+                            ->placeholder('https://github.com/seu-usuario')
+                            ->url()
+                            ->maxLength(255),
+                        TextInput::make('linkedin_link')
+                            ->label('Link do LinkedIn')
+                            ->placeholder('https://linkedin.com/in/seu-perfil')
+                            ->url()
+                            ->maxLength(255),
+                    ])->columns(2),
                 Section::make('Configurações de E-mail (SMTP)')
                     ->description('Configure seu próprio servidor SMTP para que os e-mails sejam enviados diretamente por você.')
                     ->schema([

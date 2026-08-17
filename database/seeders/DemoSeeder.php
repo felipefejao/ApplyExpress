@@ -100,6 +100,29 @@ class DemoSeeder extends Seeder
         // Assinatura ativa do usuário candidato no plano Profissional
         $paymentService->subscribe($candidatoUser, $proPlan, 'sub_demo_123', 'demo');
 
+        // Adiciona currículos de demonstração
+        \App\Models\Curriculo::create([
+            'user_id' => $candidatoUser->id,
+            'description' => 'Currículo Português',
+            'external_url' => 'https://example.com/cv-pt',
+            'language' => 'pt_br',
+        ]);
+
+        $enCurriculo = \App\Models\Curriculo::create([
+            'user_id' => $candidatoUser->id,
+            'description' => 'Resume English',
+            'external_url' => 'https://example.com/cv-en',
+            'language' => 'us',
+        ]);
+
+        $candidatoUser->update([
+            'default_curriculo_id' => $enCurriculo->id,
+            'github_link' => 'https://github.com/demo-user',
+            'linkedin_link' => 'https://linkedin.com/in/demo-user',
+            'application_text' => "Olá, estou muito interessado nesta vaga.\nAcredito que minhas habilidades em PHP e Laravel são ideais para o time.",
+            'cover_letter' => "Gostaria de me apresentar formalmente para a posição...",
+        ]);
+
         // Transação extra de créditos para demonstração
         CreditTransaction::create([
             'user_id' => $candidatoUser->id,

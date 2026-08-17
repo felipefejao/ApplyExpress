@@ -35,7 +35,7 @@
     @endif
 
     @if ($data['application_text'])
-        <div style="white-space: pre-line;">
+        <div style="white-space: pre-line; margin-bottom: 20px;">
             {!! nl2br(e($data['application_text'])) !!}
         </div>
     @else
@@ -45,18 +45,16 @@
     @if ($data['cover_letter'])
         <hr>
         <h3>Carta de Apresentação</h3>
-        <div style="white-space: pre-line;">
+        <div style="white-space: pre-line; margin-bottom: 20px;">
             {!! nl2br(e($data['cover_letter'])) !!}
         </div>
     @endif
 
-    <p>
-        @if (!empty($data['curriculo_url']))
-            Você pode acessar meu currículo através deste link: <a href="{{ $data['curriculo_url'] }}">{{ $data['curriculo_url'] }}</a>
-        @else
-            Em anexo, envio meu currículo para avaliação.
-        @endif
-    </p>
+    @if (!empty($data['curriculo_url']))
+        <p>
+            <b>Currículo:</b> <a href="{{ $data['curriculo_url'] }}" style="font-weight: bold; color: #0056b3;">Currículo</a>
+        </p>
+    @endif
 
     <p>Estou à disposição para uma entrevista a qualquer momento e espero ansiosamente a oportunidade de discutir como posso contribuir para o sucesso da sua empresa.</p>
 
@@ -67,8 +65,11 @@
     <p>Obrigado pelo seu tempo e consideração.</p>
     <p>Atenciosamente,</p>
     <h3>{{ $data['nome'] }}</h3>
-    <p><a target="_blank" href="{{ $data['linkedin'] }}">LinkedIn</a></p>
-    <p><a target="_blank" href="{{ $data['github'] }}">GitHub</a></p>
+
+    <div style="margin-top: 20px;">
+        <p><strong>Linkedin:</strong> <a target="_blank" href="{{ $data['linkedin'] }}" style="font-weight: bold; color: #0077b5;">Linkedin</a></p>
+        <p><strong>Github:</strong> <a target="_blank" href="{{ $data['github'] }}" style="font-weight: bold; color: #333;">Github</a></p>
+    </div>
 </div>
 </body>
 </html>

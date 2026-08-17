@@ -9,11 +9,11 @@ use App\Models\Vaga;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class UserSmtpTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     public function test_send_user_email_job_uses_user_smtp_settings(): void
     {
