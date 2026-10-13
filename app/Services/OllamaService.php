@@ -6,22 +6,22 @@ use Illuminate\Support\Facades\Http;
 
 class OllamaService
 {
-    public function improveHtml(string $html, string $language): string
+    public function improveText(string $text, string $language): string
     {
         if (!$this->isEnabled()) {
-            return $html;
+            return $text;
         }
 
         try {
             $response = Http::timeout(120)->post('http://localhost:11434/api/generate', [
                 'model' => 'mistral',
-                'prompt' => $this->buildPrompt($html, $language),
+                'prompt' => $this->buildPrompt($text, $language),
                 'stream' => false,
             ]);
 
-            return $response->json()['response'];
+            return $response->json()['response'] ?? $text;
         } catch (\Exception $e) {
-            return $html;
+            return $text;
         }
     }
 
@@ -35,7 +35,7 @@ class OllamaService
         }
     }
 
-    private function buildPrompt(string $html, string $language)
+    private function buildPrompt(string $text, string $language)
     {
         $languages = [
             'pt_br' => 'Portuguese (Brazil)',
@@ -48,13 +48,13 @@ class OllamaService
 
         $targetLanguage = $languages[$language] ?? $language;
 
-        return config('prompt.html-improvement') . "
-            CRITICAL: You MUST translate ALL text content within the HTML to {$targetLanguage}.
+        return config('prompt.text-improvement') . "
+            CRITICAL: You MUST translate ALL text content to {$targetLanguage}.
             The original text might be in another language, but the output MUST be in {$targetLanguage}.
-            Do not translate proper names or technical links if they should remain unchanged.
-            
-            HTML to process:
-            {$html}
+            Do not translate proper names, URLs or technical links if they should remain unchanged.
+
+            Text to process:
+            {$text}
         ";
     }
 }

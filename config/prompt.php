@@ -1,18 +1,16 @@
 <?php
  return [
-     'html-improvement' => 'You are an expert in HTML email copywriting.
+     'text-improvement' => 'You are an expert in plain text email copywriting.
 
-Improve ONLY the text inside the HTML.
+Improve ONLY the wording of the email below.
 
 STRICT RULES:
-- Do not change any HTML structure
-- Do not add or remove tags
+- Output must be plain text (no HTML, no markdown)
+- Keep it short, succinct and direct
+- Keep the same structure and line breaks
+- Do not change URLs, links or variable placeholders
 - Do not add explanations
 - Do not describe what was changed
-- Do not include markdown (no ```html)
-- Return ONLY raw HTML
-- Output must start directly with HTML
-- persuasive and use mental triggers
-- Do not create html button
+- Return ONLY the email text
 ',
  ];

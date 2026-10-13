@@ -40,6 +40,8 @@ class ApplicationSettings extends Page
             'default_curriculo_id' => $user->default_curriculo_id,
             'github_link' => $user->github_link,
             'linkedin_link' => $user->linkedin_link,
+            'pretensao_clt' => $user->pretensao_clt,
+            'pretensao_pj' => $user->pretensao_pj,
             'smtp_host' => $user->smtp_host,
             'smtp_port' => $user->smtp_port,
             'smtp_username' => $user->smtp_username,
@@ -90,6 +92,16 @@ class ApplicationSettings extends Page
                             ->url()
                             ->maxLength(255),
                     ])->columns(2),
+                Section::make('Pretensões Salariais')
+                    ->description('Prentensões salariais para candidaturas CLTs e PJs')
+                    ->schema([
+                        TextInput::make('pretensao_clt')
+                            ->label('Pretensão CLT')
+                            ->placeholder('R$ 1.000,00'),
+                        TextInput::make('pretensao_pj')
+                            ->label('Pretensão PJ')
+                            ->placeholder('R$ 1.000,00'),
+                    ]),
                 Section::make('Configurações de E-mail (SMTP)')
                     ->description('Configure seu próprio servidor SMTP para que os e-mails sejam enviados diretamente por você.')
                     ->schema([

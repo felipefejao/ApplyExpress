@@ -64,6 +64,8 @@ class SendUserEmailJob implements ShouldQueue
             'cover_letter' => $user->cover_letter,
             'curriculo_url' => $curriculo?->external_url,
             'is_fallback_english' => $is_fallback_english,
+            'pretensao_clt' => $user->pretensao_clt,
+            'pretensao_pj' => $user->pretensao_pj,
         ];
 
         if ($user->smtp_host) {

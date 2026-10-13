@@ -63,20 +63,17 @@ class EmailFormattingTest extends TestCase
         $this->assertEmpty($mailable->attachments());
 
         // Render the view to check content
-        $html = view('email.application', ['data' => $mailData])->render();
+        $body = view('email.application', ['data' => $mailData])->render();
 
-        $this->assertStringContainsString('Olá, tenho interesse na vaga.', $html);
-        $this->assertStringContainsString('Currículo', $html);
-        $this->assertStringContainsString('https://meu-cv.com/pdf', $html);
-        $this->assertStringContainsString('Linkedin', $html);
-        $this->assertStringContainsString('https://linkedin.com/in/felipe', $html);
-        $this->assertStringContainsString('Github', $html);
-        $this->assertStringContainsString('https://github.com/felipe', $html);
-        $this->assertStringNotContainsString('Empresa X', $html); // Should not be in the body anymore
-        
-        // Check for specific highlight styles
-        $this->assertStringContainsString('color: #0077b5;', $html); // LinkedIn color
-        $this->assertStringContainsString('color: #333;', $html); // Github color
+        $this->assertStringContainsString('Olá, tenho interesse na vaga.', $body);
+        $this->assertStringContainsString('Currículo', $body);
+        $this->assertStringContainsString('https://meu-cv.com/pdf', $body);
+        $this->assertStringContainsString('LinkedIn', $body);
+        $this->assertStringContainsString('https://linkedin.com/in/felipe', $body);
+        $this->assertStringContainsString('GitHub', $body);
+        $this->assertStringContainsString('https://github.com/felipe', $body);
+        $this->assertStringNotContainsString('Empresa X', $body); // Should not be in the body anymore
+        $this->assertStringNotContainsString('<html', $body); // Plain text only
     }
 
     public function test_email_view_has_correct_formatting_with_only_user_data(): void
@@ -99,14 +96,14 @@ class EmailFormattingTest extends TestCase
             'is_fallback_english' => false,
         ];
 
-        $html = view('email.application', ['data' => $mailData])->render();
+        $body = view('email.application', ['data' => $mailData])->render();
 
-        $this->assertStringContainsString('Hello, I am interested.', $html);
-        $this->assertStringContainsString('Currículo', $html); // Text is now fixed to "Currículo"
-        $this->assertStringContainsString('Linkedin', $html);
-        $this->assertStringContainsString('Github', $html);
-        $this->assertStringNotContainsString('Tech Corp', $html);
-        $this->assertStringNotContainsString('John Doe', $html);
+        $this->assertStringContainsString('Hello, I am interested.', $body);
+        $this->assertStringContainsString('Currículo', $body); // Text is now fixed to "Currículo"
+        $this->assertStringContainsString('LinkedIn', $body);
+        $this->assertStringContainsString('GitHub', $body);
+        $this->assertStringNotContainsString('Tech Corp', $body);
+        $this->assertStringNotContainsString('John Doe', $body);
     }
 
     public function test_email_view_replaces_company_placeholder(): void
@@ -131,10 +128,10 @@ class EmailFormattingTest extends TestCase
 
         $mailable = new SendEmailWithAttachment($mailData);
         $content = $mailable->content();
-        $html = $content->htmlString;
+        $body = $content->with['body'];
 
-        $this->assertStringContainsString('Olá, gostaria de trabalhar na Apple Inc.', $html);
-        $this->assertStringContainsString('Prezados da Apple Inc, segue meu CV.', $html);
-        $this->assertStringNotContainsString('[NOME_EMPRESA]', $html);
+        $this->assertStringContainsString('Olá, gostaria de trabalhar na Apple Inc.', $body);
+        $this->assertStringContainsString('Prezados da Apple Inc, segue meu CV.', $body);
+        $this->assertStringNotContainsString('[NOME_EMPRESA]', $body);
     }
 }

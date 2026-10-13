@@ -115,9 +115,9 @@ class ApplicationEmailContentTest extends TestCase
     {
         $ollamaMock = Mockery::mock(OllamaService::class)->makePartial();
         $ollamaMock->shouldReceive('isEnabled')->andReturn(true);
-        $ollamaMock->shouldReceive('improveHtml')
+        $ollamaMock->shouldReceive('improveText')
             ->with(Mockery::any(), 'pt_br')
-            ->andReturn('Improved HTML content');
+            ->andReturn('Improved text content');
         $this->app->instance(OllamaService::class, $ollamaMock);
 
         $user = User::factory()->create();
@@ -143,7 +143,8 @@ class ApplicationEmailContentTest extends TestCase
 
         $content = $mailable->content();
 
-        $this->assertEquals('Improved HTML content', $content->htmlString);
+        $this->assertEquals('email.plain', $content->text);
+        $this->assertEquals('Improved text content', $content->with['body']);
     }
 
     public function test_ollama_receives_correct_language_from_vaga(): void
@@ -152,7 +153,7 @@ class ApplicationEmailContentTest extends TestCase
         $ollamaMock->shouldReceive('isEnabled')->andReturn(true);
         
         // Expecting 'us' as the language for a US job
-        $ollamaMock->shouldReceive('improveHtml')
+        $ollamaMock->shouldReceive('improveText')
             ->with(Mockery::any(), 'us')
             ->once()
             ->andReturn('English Translated Content');
@@ -176,6 +177,6 @@ class ApplicationEmailContentTest extends TestCase
         $mailable = new SendEmailWithAttachment($mailData);
         $content = $mailable->content();
 
-        $this->assertEquals('English Translated Content', $content->htmlString);
+        $this->assertEquals('English Translated Content', $content->with['body']);
     }
 }

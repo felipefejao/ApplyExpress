@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use App\Services\OllamaService;
-use App\Services\TextBoostService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -50,12 +49,13 @@ class SendEmailWithAttachment extends Mailable
             $data['cover_letter'] = str_replace('[NOME_EMPRESA]', $empresa, $data['cover_letter']);
         }
 
-        $html = view('email.application', ['data' => $data])->render();
+        $text = view('email.application', ['data' => $data])->render();
 
-        $htmlImprovingService = app(OllamaService::class);
+        $text = app(OllamaService::class)->improveText($text, $data['language'] ?? 'pt_br');
 
         return new Content(
-            htmlString:  $htmlImprovingService->improveHtml($html, $this->data['language']),
+            text: 'email.plain',
+            with: ['body' => $text],
         );
     }
 
